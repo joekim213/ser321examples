@@ -251,12 +251,12 @@ class WebServer {
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           query_pairs = splitQuery(request.replace("github?", ""));
           String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
-          System.out.println(json);
+          //System.out.println(json);
 
           String parseJson = json;
 
           //Pattern p = Pattern.compile("([id])\\:(\\w+)");
-          Pattern p = Pattern.compile("(id)\\:");
+          Pattern p = Pattern.compile("\\bid\\b");
 
           Matcher matcher = p.matcher(parseJson);
 
