@@ -259,17 +259,19 @@ class WebServer {
           //Pattern p = Pattern.compile("\\bid\\b");
 
           Pattern idPattern = Pattern.compile("(\"id\":(\\w+))");
-          Pattern namePattern = Pattern.compile("(\"name\":(\\w+))");
+
 
           Matcher matcher = idPattern.matcher(parseJson);
+
+          while(matcher.find()) {
+            System.out.println(matcher.group(0));
+          }
+
+          Pattern namePattern = Pattern.compile("(\"name\":(\\w+))");
           Matcher nMatcher = namePattern.matcher(parseJson);
 
           while(nMatcher.find()) {
             System.out.println(nMatcher.group(0));
-          }
-
-          while(matcher.find()) {
-            System.out.println(matcher.group(0));
           }
 
           builder.append("HTTP/1.1 200 OK\n");
