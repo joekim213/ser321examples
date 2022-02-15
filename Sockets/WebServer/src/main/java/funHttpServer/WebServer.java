@@ -267,7 +267,8 @@ class WebServer {
             System.out.println(matcher.group(0));
           }
 
-          Pattern namePattern = Pattern.compile("(\"name\":(\\w+))");
+          //Pattern namePattern = Pattern.compile("(\"name\":(\\w+))");
+          Pattern namePattern = Pattern.compile("\"name\"");
           Matcher nMatcher = namePattern.matcher(parseJson);
 
           while(nMatcher.find()) {
