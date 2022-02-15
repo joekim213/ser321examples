@@ -54,16 +54,16 @@ class WebServer {
         out.close();
         sock.close();
       }
-    } catch (IOException e) {
-      System.err.println("There has been an error");
+    } catch (Exception e) {
+      System.err.println("There has been an error1");
       e.printStackTrace();
     } finally {
       if (sock != null) {
         try {
           server.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
           // TODO Auto-generated catch block
-          System.out.println("There has been an error");
+          System.err.println("There has been an error2");
           System.err.println(e);
           e.printStackTrace();
         }
