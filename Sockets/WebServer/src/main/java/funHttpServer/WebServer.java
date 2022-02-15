@@ -260,11 +260,11 @@ class WebServer {
 
           Matcher matcher = p.matcher(parseJson);
 
-          while(matcher.find()) {
+          /*while(matcher.find()) {
             System.out.println(matcher.group(0));
             System.out.println(matcher.group(1));
             System.out.println(matcher.group(2));
-          }
+          }*/
 
 
           builder.append("HTTP/1.1 200 OK\n");
