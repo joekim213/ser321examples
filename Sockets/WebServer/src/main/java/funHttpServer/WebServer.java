@@ -54,14 +54,14 @@ class WebServer {
         out.close();
         sock.close();
       }
-    } catch (Exception e) {
+    } catch (IOException e) {
       System.err.println("There has been an error1");
       e.printStackTrace();
     } finally {
       if (sock != null) {
         try {
           server.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
           // TODO Auto-generated catch block
           System.err.println("There has been an error2");
           System.err.println(e);
@@ -204,9 +204,19 @@ class WebServer {
           // extract path parameters
           query_pairs = splitQuery(request.replace("multiply?", ""));
 
+          Integer num1 = null;
+          Integer num2 = null;
+
           // extract required fields from parameters
-          Integer num1 = Integer.parseInt(query_pairs.get("num1"));
-          Integer num2 = Integer.parseInt(query_pairs.get("num2"));
+          num1 = Integer.parseInt(query_pairs.get("num1"));
+          num2 = Integer.parseInt(query_pairs.get("num2"));
+
+          if (num1==null || num2==null) {
+            builder.append("HTTP/1.1 400 Bad request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("Please assign num1 and num2 an integer value");
+          }
 
           // do math
           Integer result = num1 * num2;
@@ -219,12 +229,7 @@ class WebServer {
 
           // TODO: Include error handling here with a correct error code and
           // a response that makes sense
-          if (num1==null || num2==null) {
-            builder.append("HTTP/1.1 400 Bad request\n");
-            builder.append("Content-Type: text/html; charset=utf-8\n");
-            builder.append("\n");
-            builder.append("Please assign num1 and num2 an integer value");
-          }
+
 
         } else if (request.contains("github?")) {
           // pulls the query from the request and runs it with GitHub's REST API
