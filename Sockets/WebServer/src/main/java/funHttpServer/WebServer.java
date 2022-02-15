@@ -26,6 +26,10 @@ import java.util.Map;
 import java.util.LinkedHashMap;
 import java.nio.charset.Charset;
 
+//additional imports
+import java.util.Objects;
+import java.util.regex.*;
+
 class WebServer {
   public static void main(String args[]) {
     WebServer server = new WebServer(9000);
@@ -216,10 +220,9 @@ class WebServer {
               builder.append("HTTP/1.1 400 Bad request\n");
               builder.append("Content-Type: text/html; charset=utf-8\n");
               builder.append("\n");
-              builder.append("Please assign num1 and num2 an integer value");
+              builder.append("Please assign num1 and num2 an integer value to multiply 400");
             }
           }
-
 
           if (num1 != null && num2 != null) {
             // do math
@@ -231,6 +234,7 @@ class WebServer {
             builder.append("\n");
             builder.append("Result is: " + result);
           }
+
           // TODO: Include error handling here with a correct error code and
           // a response that makes sense
 
@@ -252,9 +256,10 @@ class WebServer {
           builder.append("HTTP/1.1 200 OK\n");
           builder.append("Content-Type: text/html; charset=utf-8\n");
           builder.append("\n");
-          builder.append("Check the todos mentioned in the Java source file");
+          builder.append(json);
           // TODO: Parse the JSON returned by your fetch and create an appropriate
           // response based on what the assignment document asks for
+
 
         } else {
           // if the request is not recognized at all
