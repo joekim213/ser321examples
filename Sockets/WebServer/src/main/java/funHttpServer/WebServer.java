@@ -259,8 +259,7 @@ class WebServer {
           //Pattern p = Pattern.compile("\\bid\\b");
 
           Pattern idPattern = Pattern.compile("(\"id\":(\\w+))");
-
-
+          
           Matcher matcher = idPattern.matcher(parseJson);
 
           while(matcher.find()) {
@@ -268,7 +267,7 @@ class WebServer {
           }
 
           //Pattern namePattern = Pattern.compile("(\"name\":(\\w+))");
-          Pattern namePattern = Pattern.compile("\"name\"");
+          Pattern namePattern = Pattern.compile("(\"name\"):(\\w+)");
           Matcher nMatcher = namePattern.matcher(parseJson);
 
           while(nMatcher.find()) {
