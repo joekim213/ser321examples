@@ -62,6 +62,7 @@ class WebServer {
           server.close();
         } catch (IOException e) {
           // TODO Auto-generated catch block
+          System.err.println(e);
           e.printStackTrace();
         }
       }
@@ -216,6 +217,12 @@ class WebServer {
 
           // TODO: Include error handling here with a correct error code and
           // a response that makes sense
+          if (num1==null || num2==null) {
+            builder.append("HTTP/1.1 400 Bad request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("Please assign num1 and num2 an integer value");
+          }
 
         } else if (request.contains("github?")) {
           // pulls the query from the request and runs it with GitHub's REST API
