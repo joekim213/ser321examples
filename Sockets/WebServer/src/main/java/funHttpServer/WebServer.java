@@ -255,7 +255,8 @@ class WebServer {
 
           String parseJson = json;
 
-          Pattern p = Pattern.compile("([id])\\:(\\w+)");
+          //Pattern p = Pattern.compile("([id])\\:(\\w+)");
+          Pattern p = Pattern.compile("[id]");
 
           Matcher matcher = p.matcher(parseJson);
 
