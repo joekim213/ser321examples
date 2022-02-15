@@ -264,8 +264,11 @@ class WebServer {
           Matcher matcher = idPattern.matcher(parseJson);
           Matcher nMatcher = namePattern.matcher(parseJson);
 
-          while(matcher.find()) {
+          while(nMatcher.find()) {
             System.out.println(nMatcher.group(0));
+          }
+
+          while(matcher.find()) {
             System.out.println(matcher.group(0));
           }
 
