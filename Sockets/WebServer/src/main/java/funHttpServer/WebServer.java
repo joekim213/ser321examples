@@ -304,6 +304,52 @@ class WebServer {
           }
           //builder.append(json);
 
+        } else if (request.contains("cipher?")) {
+          // TODO: MAKE YOUR OWN REQUEST
+          // This is a rudimentary implementation of an adjustable caesar cipher
+
+          Map<String, String> query_pairs = null;
+
+          try {
+            query_pairs = new LinkedHashMap<String, String>();
+            // extract path parameters
+            query_pairs = splitQuery(request.replace("cipher?", ""));
+          } catch (Exception e) {
+            builder.append("HTTP/1.1 400 Bad request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("400: Please reformat your request there is a problem");
+          }
+          // TODO: Include error handling
+
+          String message = null;
+          Integer increment = null;
+
+          try {
+            // extract required fields from parameters
+            message = String.parseInt(query_pairs.get("msg"));
+            increment = Integer.parseInt(query_pairs.get("plus"));
+          } catch (Exception e) {
+            if (message==null || increment==null) {
+              builder.append("HTTP/1.1 400 Bad request\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("400: Please assign num1 and num2 an integer value to multiply");
+            }
+          }
+
+          if (message != null && increment != null) {
+            // do math
+            Integer result = message * increment;
+
+            // Generate response
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("Result is: " + result);
+          }
+        } else if (request.contains("decypher?")) {
+          // TODO: MAKE YOUR OWN REQUEST
         } else {
           // if the request is not recognized at all
           builder.append("HTTP/1.1 400 Bad Request\n");
