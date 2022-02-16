@@ -261,28 +261,32 @@ class WebServer {
             builder.append("400: There is a problem with your request\n");
           }
 
-          //save as a JSON array
-          JSONArray repoArray = new JSONArray(json);
+          try {
+            //save as a JSON array
+            JSONArray repoArray = new JSONArray(json);
 
-          for(int i=0; i<repoArray.length(); i++) {
+            for (int i = 0; i < repoArray.length(); i++) {
 
-            JSONObject repo = repoArray.getJSONObject(i);
-            String repoName = repo.getString("name");
-            System.out.println(repoName);
-            builder.append("\nRepoName:\n");
-            builder.append(repoName);
+              JSONObject repo = repoArray.getJSONObject(i);
+              String repoName = repo.getString("name");
+              System.out.println(repoName);
+              builder.append("\nRepoName:\n");
+              builder.append(repoName);
 
-            Integer repoID = repo.getInt("id");
-            System.out.println(repoID);
-            builder.append("\nRepoID:\n");
-            builder.append(repoID);
+              Integer repoID = repo.getInt("id");
+              System.out.println(repoID);
+              builder.append("\nRepoID:\n");
+              builder.append(repoID);
 
-            JSONObject owner = repo.getJSONObject("owner");
-            String ownername = owner.getString("login");
-            System.out.println(ownername);
-            builder.append("\nRepoOwner:\n");
-            builder.append(ownername);
+              JSONObject owner = repo.getJSONObject("owner");
+              String ownername = owner.getString("login");
+              System.out.println(ownername);
+              builder.append("\nRepoOwner:\n");
+              builder.append(ownername);
 
+            }
+          } catch (Exception e) {
+            builder.append("406: There is a problem with your request or data\n");
           }
           //builder.append(json);
 
