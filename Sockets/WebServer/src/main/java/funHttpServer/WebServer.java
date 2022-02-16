@@ -296,9 +296,10 @@ class WebServer {
 
             }
           } catch (Exception e) {
-/*            builder.append("HTTP/1.1 406 Bad Request\n");
+            builder.setLength(builder.length() -3);
+            builder.append("HTTP/1.1 406 Bad Request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
-            builder.append("\n");*/
+            builder.append("\n");
             builder.append("406: There is a problem with your request or data\n");
           }
           //builder.append(json);
