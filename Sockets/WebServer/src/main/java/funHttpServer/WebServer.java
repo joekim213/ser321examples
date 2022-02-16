@@ -352,7 +352,7 @@ class WebServer {
             builder.append("\n");
             builder.append("Encrypted message is: " + sb);
           }
-        } else if (request.contains("decipher?")) {
+        } else if (request.contains("decypher?")) {
           // TODO: MAKE YOUR OWN REQUEST
           // This is a rudimentary implementation of an adjustable caesar cipher
 
@@ -361,7 +361,7 @@ class WebServer {
           try {
             query_pairs = new LinkedHashMap<String, String>();
             // extract path parameters
-            query_pairs = splitQuery(request.replace("decipher?", ""));
+            query_pairs = splitQuery(request.replace("decypher?", ""));
           } catch (Exception e) {
             builder.append("HTTP/1.1 400 Bad request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
