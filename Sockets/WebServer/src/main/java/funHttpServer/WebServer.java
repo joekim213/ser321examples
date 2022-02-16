@@ -326,6 +326,8 @@ class WebServer {
           String messageInc = null;
           Integer increment = null;
 
+          StringBuilder sb = new StringBuilder();
+
           try {
             // extract required fields from parameters
             message = query_pairs.get("msg");
@@ -341,7 +343,7 @@ class WebServer {
 
           if (message != null && increment != null) {
             for (int i=0; i<message.length(); i++) {
-              messageInc +=(char)(messageInc.charAt(i)+increment);
+              sb.append((char)(message.charAt(i)+1));
             }
 
             // Generate response
