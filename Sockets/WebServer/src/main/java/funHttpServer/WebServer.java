@@ -280,7 +280,7 @@ class WebServer {
 
           builder.append("Raw Data\n");
           builder.append("\n");
-          builder.append(json);
+          //builder.append(json);
 
           //System.out.println("==== RAW DATA ====");
           //System.out.println(json);
