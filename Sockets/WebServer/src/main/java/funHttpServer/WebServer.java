@@ -252,7 +252,7 @@ class WebServer {
 
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           query_pairs = null;
-          String json = "";
+          String json = "[]";
           try {
             query_pairs = splitQuery(request.replace("github?", ""));
             json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
@@ -270,18 +270,18 @@ class WebServer {
             JSONObject repo = repoArray.getJSONObject(i);
             String repoName = repo.getString("name");
             System.out.println(repoName);
-            builder.append("\nRepo Name:\n");
+            builder.append("\nRepoName:\n");
             builder.append(repoName);
 
             Integer repoID = repo.getInt("id");
             System.out.println(repoID);
-            builder.append("\nRepo ID:\n");
+            builder.append("\nRepoID:\n");
             builder.append(repoID);
 
             JSONObject owner = repo.getJSONObject("owner");
             String ownername = owner.getString("login");
             System.out.println(ownername);
-            builder.append("\nRepo Owner Username:\n");
+            builder.append("\nRepoOwner:\n");
             builder.append(ownername);
 
           }
