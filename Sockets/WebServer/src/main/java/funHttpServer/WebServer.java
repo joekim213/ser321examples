@@ -252,17 +252,15 @@ class WebServer {
 
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           query_pairs = null;
-          JSONArray emptyJA = new JSONArray();
+          JSONArray emptyJA = new JSONArray("");
           String json = emptyJA.toString();
-          
+
           try {
             query_pairs = splitQuery(request.replace("github?", ""));
             json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
           } catch (Exception e) {
             builder.append("400: There is a problem with your request\n");
           }
-
-
 
           //save as a JSON array
           JSONArray repoArray = new JSONArray(json);
