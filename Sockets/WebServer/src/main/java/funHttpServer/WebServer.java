@@ -323,30 +323,32 @@ class WebServer {
           // TODO: Include error handling
 
           String message = null;
+          String messageInc = null;
           Integer increment = null;
 
           try {
             // extract required fields from parameters
-            message = String.parseInt(query_pairs.get("msg"));
+            message = query_pairs.get("msg");
             increment = Integer.parseInt(query_pairs.get("plus"));
           } catch (Exception e) {
             if (message==null || increment==null) {
               builder.append("HTTP/1.1 400 Bad request\n");
               builder.append("Content-Type: text/html; charset=utf-8\n");
               builder.append("\n");
-              builder.append("400: Please assign num1 and num2 an integer value to multiply");
+              builder.append("400: Please assign a string message and integer increment");
             }
           }
 
           if (message != null && increment != null) {
-            // do math
-            Integer result = message * increment;
+            for (int i=0; i<message.length(); i++) {
+              messageInc +=(char)(messageInc.charAt(i)+increment);
+            }
 
             // Generate response
             builder.append("HTTP/1.1 200 OK\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
-            builder.append("Result is: " + result);
+            builder.append("Encrypted message is: " + messageInc);
           }
         } else if (request.contains("decypher?")) {
           // TODO: MAKE YOUR OWN REQUEST
