@@ -261,10 +261,18 @@ class WebServer {
           JSONArray newJSON = new JSONArray();
 
           for(int i=0; i<repoArray.length(); i++) {
-            JSONObject repo = repoArray.getJSONObject(i);
 
+            JSONObject repo = repoArray.getJSONObject(i);
             String repoName = repo.getString("name");
             System.out.println(repoName);
+
+            String repoID = repo.getString("id");
+            System.out.println(repoID);
+
+            JSONObject owner = repo.getJSONObject("owner");
+            String ownername = owner.getString("login");
+            System.out.println(ownername);
+
           }
 
 
