@@ -246,13 +246,21 @@ class WebServer {
 
           // TODO: Parse the JSON...
 
-          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-          query_pairs = splitQuery(request.replace("github?", ""));
-          String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
-
           builder.append("HTTP/1.1 200 OK\n");
           builder.append("Content-Type: text/html; charset=utf-8\n");
           builder.append("\n");
+
+          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+          query_pairs = null;
+          String json = "";
+          try {
+            query_pairs = splitQuery(request.replace("github?", ""));
+            json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
+          } catch (Exception e) {
+            builder.append("400: There is a problem with your request\n");
+          }
+
+
 
           //save as a JSON array
           JSONArray repoArray = new JSONArray(json);
@@ -277,13 +285,7 @@ class WebServer {
             builder.append(ownername);
 
           }
-
-          builder.append("Raw Data\n");
-          builder.append("\n");
           //builder.append(json);
-
-          //System.out.println("==== RAW DATA ====");
-          //System.out.println(json);
 
         } else {
           // if the request is not recognized at all
