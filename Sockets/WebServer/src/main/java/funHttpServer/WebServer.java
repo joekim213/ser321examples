@@ -361,7 +361,7 @@ class WebServer {
           try {
             query_pairs = new LinkedHashMap<String, String>();
             // extract path parameters
-            query_pairs = splitQuery(request.replace("cipher?", ""));
+            query_pairs = splitQuery(request.replace("decipher?", ""));
           } catch (Exception e) {
             builder.append("HTTP/1.1 400 Bad request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
