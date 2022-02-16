@@ -202,8 +202,10 @@ class WebServer {
           // This multiplies two numbers, there is NO error handling, so when
           // wrong data is given this just crashes
 
+          Map<String, String> query_pairs = null;
+
           try {
-            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            query_pairs = new LinkedHashMap<String, String>();
             // extract path parameters
             query_pairs = splitQuery(request.replace("multiply?", ""));
           } catch (Exception e) {
