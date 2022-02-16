@@ -206,6 +206,8 @@ class WebServer {
           // extract path parameters
           query_pairs = splitQuery(request.replace("multiply?", ""));
 
+          // TODO: Include error handling
+
           Integer num1 = null;
           Integer num2 = null;
 
@@ -233,10 +235,6 @@ class WebServer {
             builder.append("Result is: " + result);
           }
 
-          // TODO: Include error handling here with a correct error code and
-          // a response that makes sense
-
-
         } else if (request.contains("github?")) {
           // pulls the query from the request and runs it with GitHub's REST API
           // check out https://docs.github.com/rest/reference/
@@ -260,6 +258,14 @@ class WebServer {
 
           //save as a JSON array
           JSONArray repoArray = new JSONArray(json);
+          JSONArray newJSON = new JSONArray();
+
+          for(int i=0; i<repoArray.length(); i++) {
+            JSONObject repo = repoArray.getJSONObject(i);
+
+            String repoName = repo.getString("name");
+            System.out.println(repoName);
+          }
 
 
         } else {
