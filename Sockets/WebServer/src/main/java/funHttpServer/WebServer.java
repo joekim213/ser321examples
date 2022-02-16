@@ -380,6 +380,7 @@ class WebServer {
             // extract required fields from parameters
             message = query_pairs.get("msg");
             decrement = Integer.parseInt(query_pairs.get("minus"));
+            System.out.println(decrement.toString());
           } catch (Exception e) {
             if (message==null || decrement==null) {
               builder.append("HTTP/1.1 400 Bad request\n");
