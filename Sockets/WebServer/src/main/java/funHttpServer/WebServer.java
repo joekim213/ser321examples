@@ -252,8 +252,7 @@ class WebServer {
 
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           query_pairs = null;
-          JSONArray emptyJA = new JSONArray("");
-          String json = emptyJA.toString();
+          String json = null;
 
           try {
             query_pairs = splitQuery(request.replace("github?", ""));
