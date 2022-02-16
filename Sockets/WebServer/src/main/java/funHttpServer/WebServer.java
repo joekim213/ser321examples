@@ -261,20 +261,25 @@ class WebServer {
 
             JSONObject repo = repoArray.getJSONObject(i);
             String repoName = repo.getString("name");
-            System.out.println("repo name: " + repoName);
-            builder.append("Repo Name:");
+            System.out.println(repoName);
+            builder.append("\nRepo Name:\n");
             builder.append(repoName);
 
             Integer repoID = repo.getInt("id");
             System.out.println(repoID);
+            builder.append("\nRepo ID:\n");
+            builder.append(repoID);
 
             JSONObject owner = repo.getJSONObject("owner");
             String ownername = owner.getString("login");
             System.out.println(ownername);
+            builder.append("\nRepo Owner Username:\n");
+            builder.append(ownername);
 
           }
 
-
+          builder.append("Raw Data\n");
+          builder.append("\n");
           builder.append(json);
 
           //System.out.println("==== RAW DATA ====");
