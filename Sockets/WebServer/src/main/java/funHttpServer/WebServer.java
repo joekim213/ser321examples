@@ -343,7 +343,7 @@ class WebServer {
 
           if (message != null && increment != null) {
             for (int i=0; i<message.length(); i++) {
-              sb.append((char)(message.charAt(i)+1));
+              sb.append((char)(message.charAt(i)+increment));
             }
 
             // Generate response
@@ -352,8 +352,54 @@ class WebServer {
             builder.append("\n");
             builder.append("Encrypted message is: " + sb);
           }
-        } else if (request.contains("decypher?")) {
+        } else if (request.contains("decipher?")) {
           // TODO: MAKE YOUR OWN REQUEST
+          // This is a rudimentary implementation of an adjustable caesar cipher
+
+          Map<String, String> query_pairs = null;
+
+          try {
+            query_pairs = new LinkedHashMap<String, String>();
+            // extract path parameters
+            query_pairs = splitQuery(request.replace("cipher?", ""));
+          } catch (Exception e) {
+            builder.append("HTTP/1.1 400 Bad request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("400: Please reformat your request there is a problem");
+          }
+          // TODO: Include error handling
+
+          String message = null;
+          String messageInc = null;
+          Integer decrement = null;
+
+          StringBuilder sb = new StringBuilder();
+
+          try {
+            // extract required fields from parameters
+            message = query_pairs.get("msg");
+            decrement = Integer.parseInt(query_pairs.get("minus"));
+          } catch (Exception e) {
+            if (message==null || decrement==null) {
+              builder.append("HTTP/1.1 400 Bad request\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("400: Please assign a string message and integer decrement");
+            }
+          }
+
+          if (message != null && decrement != null) {
+            for (int i=0; i<message.length(); i++) {
+              sb.append((char)(message.charAt(i)-decrement));
+            }
+
+            // Generate response
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("Encrypted message is: " + sb);
+          }
         } else {
           // if the request is not recognized at all
           builder.append("HTTP/1.1 400 Bad Request\n");
