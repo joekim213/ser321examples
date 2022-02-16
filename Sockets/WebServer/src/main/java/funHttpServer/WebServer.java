@@ -269,12 +269,11 @@ class WebServer {
           }
 
           try {
-            //save as a JSON array
-            JSONArray repoArray = new JSONArray(json);
             builder.append("HTTP/1.1 200 OK\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
-
+            //save as a JSON array
+            JSONArray repoArray = new JSONArray(json);
             for (int i = 0; i < repoArray.length(); i++) {
 
 
