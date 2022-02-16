@@ -249,35 +249,17 @@ class WebServer {
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           query_pairs = splitQuery(request.replace("github?", ""));
           String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
-          //System.out.println(json);
-
-          String parseJson = json;
-
-          //Pattern p = Pattern.compile("([id])\\:(\\w+)");
-          //Pattern p = Pattern.compile("\\bid\\b");
-
-          Pattern idPattern = Pattern.compile("(\"id\":(\\w+))");
-          
-          Matcher matcher = idPattern.matcher(parseJson);
-
-          while(matcher.find()) {
-            System.out.println(matcher.group(0));
-          }
-
-          //Pattern namePattern = Pattern.compile("(\"name\":(\\w+))");
-          Pattern namePattern = Pattern.compile("(\"name\"):(\\w+)");
-          Matcher nMatcher = namePattern.matcher(parseJson);
-
-          while(nMatcher.find()) {
-            System.out.println(nMatcher.group(0));
-          }
+          System.out.println(json);
 
           builder.append("HTTP/1.1 200 OK\n");
           builder.append("Content-Type: text/html; charset=utf-8\n");
           builder.append("\n");
-          builder.append(parseJson);
+          builder.append(json);
           // TODO: Parse the JSON returned by your fetch and create an appropriate
           // response based on what the assignment document asks for
+
+          //save as a JSON array
+          JSONArray repoArray = new JSONArray(json);
 
 
         } else {
