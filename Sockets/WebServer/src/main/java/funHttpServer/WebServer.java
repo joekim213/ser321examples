@@ -202,10 +202,16 @@ class WebServer {
           // This multiplies two numbers, there is NO error handling, so when
           // wrong data is given this just crashes
 
-          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-          // extract path parameters
-          query_pairs = splitQuery(request.replace("multiply?", ""));
-
+          try {
+            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            // extract path parameters
+            query_pairs = splitQuery(request.replace("multiply?", ""));
+          } catch (Exception e) {
+            builder.append("HTTP/1.1 400 Bad request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("400: Please reformat your request there is a problem");
+          }
           // TODO: Include error handling
 
           Integer num1 = null;
@@ -220,7 +226,7 @@ class WebServer {
               builder.append("HTTP/1.1 400 Bad request\n");
               builder.append("Content-Type: text/html; charset=utf-8\n");
               builder.append("\n");
-              builder.append("Please assign num1 and num2 an integer value to multiply 400");
+              builder.append("400: Please assign num1 and num2 an integer value to multiply");
             }
           }
 
@@ -246,9 +252,7 @@ class WebServer {
 
           // TODO: Parse the JSON...
 
-          builder.append("HTTP/1.1 200 OK\n");
-          builder.append("Content-Type: text/html; charset=utf-8\n");
-          builder.append("\n");
+
 
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           query_pairs = null;
@@ -258,10 +262,17 @@ class WebServer {
             query_pairs = splitQuery(request.replace("github?", ""));
             json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
           } catch (Exception e) {
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
             builder.append("400: There is a problem with your request\n");
           }
 
           try {
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+
             //save as a JSON array
             JSONArray repoArray = new JSONArray(json);
 
@@ -286,13 +297,15 @@ class WebServer {
 
             }
           } catch (Exception e) {
+            builder.append("HTTP/1.1 406 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
             builder.append("406: There is a problem with your request or data\n");
           }
           //builder.append(json);
 
         } else {
           // if the request is not recognized at all
-
           builder.append("HTTP/1.1 400 Bad Request\n");
           builder.append("Content-Type: text/html; charset=utf-8\n");
           builder.append("\n");
