@@ -244,27 +244,26 @@ class WebServer {
           // "Owner's repo is named RepoName. Example: find RepoName's contributors" translates to
           //     "/repos/OWNERNAME/REPONAME/contributors"
 
+          // TODO: Parse the JSON...
+
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           query_pairs = splitQuery(request.replace("github?", ""));
           String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
-          System.out.println(json);
 
           builder.append("HTTP/1.1 200 OK\n");
           builder.append("Content-Type: text/html; charset=utf-8\n");
           builder.append("\n");
-          builder.append(json);
-          // TODO: Parse the JSON returned by your fetch and create an appropriate
-          // response based on what the assignment document asks for
 
           //save as a JSON array
           JSONArray repoArray = new JSONArray(json);
-          JSONArray newJSON = new JSONArray();
 
           for(int i=0; i<repoArray.length(); i++) {
 
             JSONObject repo = repoArray.getJSONObject(i);
             String repoName = repo.getString("name");
-            System.out.println(repoName);
+            System.out.println("repo name: " + repoName);
+            builder.append("Repo Name:");
+            builder.append(repoName);
 
             Integer repoID = repo.getInt("id");
             System.out.println(repoID);
@@ -275,6 +274,11 @@ class WebServer {
 
           }
 
+
+          builder.append(json);
+
+          //System.out.println("==== RAW DATA ====");
+          //System.out.println(json);
 
         } else {
           // if the request is not recognized at all
