@@ -254,8 +254,6 @@ class WebServer {
 
           // TODO: Parse the JSON...
 
-
-
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           query_pairs = null;
           String json = null;
@@ -271,14 +269,14 @@ class WebServer {
           }
 
           try {
+            //save as a JSON array
+            JSONArray repoArray = new JSONArray(json);
             builder.append("HTTP/1.1 200 OK\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
 
-            //save as a JSON array
-            JSONArray repoArray = new JSONArray(json);
-
             for (int i = 0; i < repoArray.length(); i++) {
+
 
               JSONObject repo = repoArray.getJSONObject(i);
               String repoName = repo.getString("name");
@@ -299,9 +297,9 @@ class WebServer {
 
             }
           } catch (Exception e) {
-            builder.append("HTTP/1.1 406 Bad Request\n");
+/*            builder.append("HTTP/1.1 406 Bad Request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
-            builder.append("\n");
+            builder.append("\n");*/
             builder.append("406: There is a problem with your request or data\n");
           }
           //builder.append(json);
